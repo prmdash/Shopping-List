@@ -45,7 +45,7 @@ public class UserRegisterBindingModel {
         this.confirmPassword = confirmPassword;
     }
 
-    @Email
+    @Email(message = "Invalid email")
     @NotBlank
     public String getEmail() {
         return email;

@@ -3,6 +3,7 @@ package primo.shoppinglist.web;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +30,11 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    private ModelAndView register(ModelAndView modelAndView) {
-        modelAndView.setViewName("register");
-        modelAndView.addObject("userRegisterBindingModel", new UserRegisterBindingModel());
-        return modelAndView;
+    private String register(Model model) {
+        if (!model.containsAttribute("userRegisterBindingModel")) {
+            model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
+        }
+        return "register";
     }
 
     @PostMapping("/register")
@@ -44,6 +46,12 @@ public class UserController {
         if (bindingResult.hasErrors()
                 || !userRegisterBindingModel.getPassword()
                 .equals(userRegisterBindingModel.getConfirmPassword())) {
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "userRegisterBindingModel", userRegisterBindingModel
+                    );
+
             redirectAttributes
                     .addFlashAttribute(
                             "org.springframework" +
@@ -62,5 +70,12 @@ public class UserController {
         );
 
         return "redirect:login";
+    }
+
+    @GetMapping("/login")
+    private ModelAndView login(ModelAndView modelAndView) {
+        modelAndView.setViewName("login");
+//        modelAndView.addObject("userLoginBindingModel", new UserLoginBindingModel());
+        return modelAndView;
     }
 }
