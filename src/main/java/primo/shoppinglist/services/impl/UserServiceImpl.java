@@ -3,10 +3,13 @@ package primo.shoppinglist.services.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.ObjectError;
 import primo.shoppinglist.data.entities.UserEntity;
 import primo.shoppinglist.data.services.UserServiceModel;
 import primo.shoppinglist.repositories.UserRepository;
 import primo.shoppinglist.services.UserService;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,5 +31,26 @@ public class UserServiceImpl implements UserService {
                                 , UserEntity.class
                         )
                 );
+    }
+
+    @Override
+    public UserServiceModel findByUsernameAndPassword(String username, String password) {
+        UserEntity userEntity = userRepository
+                .findByUsernameAndPassword(username, password);
+
+        if (userEntity == null) {
+            return null;
+        }
+
+        return modelMapper.map(userEntity, UserServiceModel.class);
+    }
+
+    @Override
+    public String exportErrorMessages(List<ObjectError> allErrors) {
+        StringBuilder sb = new StringBuilder();
+        allErrors.forEach(e -> {
+            sb.append(e.getDefaultMessage()).append(System.lineSeparator());
+        });
+        return sb.toString().trim();
     }
 }

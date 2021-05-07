@@ -5,16 +5,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import primo.shoppinglist.data.bindings.UserLoginBindingModel;
 import primo.shoppinglist.data.bindings.UserRegisterBindingModel;
 import primo.shoppinglist.data.services.UserServiceModel;
 import primo.shoppinglist.services.UserService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -82,9 +86,46 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    private ModelAndView login(ModelAndView modelAndView) {
-        modelAndView.setViewName("login");
-//        modelAndView.addObject("userLoginBindingModel", new UserLoginBindingModel());
-        return modelAndView;
+    private String login(Model model) {
+        if (!model.containsAttribute("userLoginBindingModel")) {
+            model.addAttribute("userLoginBindingModel", new UserLoginBindingModel());
+        }
+        return "login";
     }
+
+    @PostMapping("/login")
+    private String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel
+            , BindingResult bindingResult
+            , RedirectAttributes redirectAttributes
+            , HttpSession httpSession
+    ) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute(
+                            "userLoginBindingModel", userLoginBindingModel
+                    );
+
+            redirectAttributes
+                    .addFlashAttribute("errorMessages"
+                            , userService.exportErrorMessages(bindingResult.getAllErrors()));
+
+            return "redirect:login";
+        }
+
+        UserServiceModel userServiceModel = userService
+                .findByUsernameAndPassword(userLoginBindingModel.getUsername()
+                        , userLoginBindingModel.getPassword());
+
+        if (userServiceModel == null) {
+            redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
+            redirectAttributes.addFlashAttribute("notFound", true);
+            return "redirect:login";
+        }
+        httpSession.setAttribute("user", userServiceModel);
+
+        return "redirect:/";
+    }
+
+
 }
