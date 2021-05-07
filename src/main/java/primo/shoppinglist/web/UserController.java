@@ -43,10 +43,7 @@ public class UserController {
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes
     ) {
-        if (bindingResult.hasErrors()
-                || !userRegisterBindingModel.getPassword()
-                .equals(userRegisterBindingModel.getConfirmPassword())) {
-
+        if (bindingResult.hasErrors()) {
             redirectAttributes
                     .addFlashAttribute(
                             "userRegisterBindingModel", userRegisterBindingModel
@@ -61,6 +58,18 @@ public class UserController {
             return "redirect:register";
         }
 
+        if (!userRegisterBindingModel.getPassword()
+                .equals(userRegisterBindingModel.getConfirmPassword())) {
+
+            redirectAttributes.addFlashAttribute("passwordDiff", true);
+            redirectAttributes.addFlashAttribute("passwordDiffMessage", "Mismatched passwords");
+            redirectAttributes
+                    .addFlashAttribute(
+                            "userRegisterBindingModel", userRegisterBindingModel
+                    );
+
+            return "redirect:register";
+        }
 
         userService.register(
                 modelMapper.map(

@@ -41,6 +41,7 @@
             </div>
             <input type="password" th:field="*{confirmPassword}" th:errorclass="bg-danger" class="form-control" id="confirmPassword"
                    name="confirmPassword" />
+            <small th:if="${passwordDiff}" th:text="${passwordDiffMessage}" class="text-danger">Password error message</small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
