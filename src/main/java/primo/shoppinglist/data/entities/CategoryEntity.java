@@ -3,6 +3,7 @@ package primo.shoppinglist.data.entities;
 import primo.shoppinglist.data.entities.enums.CategoryName;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")

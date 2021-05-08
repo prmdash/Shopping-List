@@ -2,10 +2,7 @@ package primo.shoppinglist.data.entities;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.FutureOrPresent;
 import java.math.BigDecimal;
@@ -71,4 +68,5 @@ public class ProductEntity extends BaseEntity {
     public void setCategory(CategoryEntity category) {
         this.category = category;
     }
+
 }

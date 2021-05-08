@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import primo.shoppinglist.data.bindings.ProductAddBindingModel;
+import primo.shoppinglist.data.services.ProductServiceModel;
+import primo.shoppinglist.data.services.UserServiceModel;
 import primo.shoppinglist.services.ProductService;
 
 import javax.servlet.http.HttpSession;
@@ -56,6 +58,8 @@ public class ProductController {
             return "redirect:add";
         }
 
-        return null;
+        productService.addProduct(modelMapper.map(productAddBindingModel, ProductServiceModel.class));
+
+        return "redirect:/";
     }
 }

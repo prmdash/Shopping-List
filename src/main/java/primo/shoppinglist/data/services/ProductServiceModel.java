@@ -1,21 +1,24 @@
-package primo.shoppinglist.data.bindings;
+package primo.shoppinglist.data.services;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import primo.shoppinglist.data.entities.enums.CategoryName;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class ProductAddBindingModel {
+public class ProductServiceModel {
     private String name;
     private String description;
     private BigDecimal price;
     private LocalDateTime neededBefore;
     private CategoryName category;
 
-    public ProductAddBindingModel() {
+    public ProductServiceModel() {
     }
 
     @NotBlank(message = "Cannot be blank")

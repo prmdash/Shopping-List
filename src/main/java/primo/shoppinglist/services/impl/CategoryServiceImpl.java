@@ -30,4 +30,9 @@ public class CategoryServiceImpl implements CategoryService {
                     });
         }
     }
+
+    @Override
+    public CategoryEntity getCategoryByName(CategoryName category) {
+        return categoryRepository.findByName(category);
+    }
 }
