@@ -31,7 +31,7 @@ public class ProductController {
     @GetMapping("/add")
     public String add(Model model, HttpSession httpSession) {
         if (httpSession.getAttribute("user") == null) {
-            return "redirect:login";
+            return "redirect:/users/login";
         }
         if (!model.containsAttribute("productAddBindingModel")) {
             model.addAttribute("productAddBindingModel", new ProductAddBindingModel());
@@ -44,6 +44,18 @@ public class ProductController {
     public String addConfirm(@Valid ProductAddBindingModel productAddBindingModel
             , BindingResult bindingResult
             , RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("productAddBindingModel", productAddBindingModel);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework" +
+                            ".validation.BindingResult" +
+                            ".productAddBindingModel"
+                    , bindingResult);
+
+            return "redirect:add";
+        }
+
         return null;
     }
 }
