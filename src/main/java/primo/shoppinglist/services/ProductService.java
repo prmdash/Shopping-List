@@ -13,4 +13,6 @@ public interface ProductService {
     BigDecimal getTotalSum();
 
     List<ProductViewModel> getProductsByCategory(CategoryName categoryName);
+
+    void buyById(String id);
 }
