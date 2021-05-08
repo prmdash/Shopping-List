@@ -69,4 +69,10 @@ public class ProductController {
         productService.buyById(id);
         return "redirect:/";
     }
+
+    @GetMapping("/buy/all")
+    public String buyAll() {
+        productService.buyAllProducts();
+        return "redirect:/";
+    }
 }
