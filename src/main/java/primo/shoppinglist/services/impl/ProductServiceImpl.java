@@ -9,6 +9,8 @@ import primo.shoppinglist.repositories.ProductRepository;
 import primo.shoppinglist.services.CategoryService;
 import primo.shoppinglist.services.ProductService;
 
+import java.math.BigDecimal;
+
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
@@ -31,5 +33,10 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setCategory(categoryService.getCategoryByName(productServiceModel.getCategory()));
 
         productRepository.save(productEntity);
+    }
+
+    @Override
+    public BigDecimal getTotalSum() {
+        return productRepository.findTotalPriceOfAllProducts();
     }
 }
