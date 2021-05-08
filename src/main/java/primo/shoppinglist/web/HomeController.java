@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import primo.shoppinglist.data.entities.enums.CategoryName;
 import primo.shoppinglist.services.ProductService;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,11 @@ public class HomeController {
         }
 
         model.addAttribute("totalPriceOfProducts", productService.getTotalSum());
+        model.addAttribute("food", productService.getProductsByCategory(CategoryName.FOOD));
+        model.addAttribute("drink", productService.getProductsByCategory(CategoryName.DRINK));
+        model.addAttribute("household", productService.getProductsByCategory(CategoryName.HOUSEHOLD));
+        model.addAttribute("other", productService.getProductsByCategory(CategoryName.OTHER));
+
 
         return "home";
     }
