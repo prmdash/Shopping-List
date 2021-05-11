@@ -25,7 +25,7 @@ public class HomeController {
             return "index";
         }
 
-        model.addAttribute("totalPriceOfProducts", productService.getTotalSum());
+        model.addAttribute("totalPrice", productService.getTotalSum());
         model.addAttribute("food", productService.getProductsByCategory(CategoryName.FOOD));
         model.addAttribute("drink", productService.getProductsByCategory(CategoryName.DRINK));
         model.addAttribute("household", productService.getProductsByCategory(CategoryName.HOUSEHOLD));

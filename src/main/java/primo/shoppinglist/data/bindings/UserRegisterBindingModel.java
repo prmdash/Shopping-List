@@ -15,8 +15,8 @@ public class UserRegisterBindingModel {
     public UserRegisterBindingModel() {
     }
 
-    @Length(min = 3, max = 20, message = "The username length must be between 3 and 20 characters")
-    @NotBlank
+    @Length(min = 3, max = 20, message = "The username must be between 3 and 20 characters")
+    @NotBlank(message = "The field must not be empty")
     public String getUsername() {
         return username;
     }
@@ -25,8 +25,8 @@ public class UserRegisterBindingModel {
         this.username = username;
     }
 
-    @Length(min = 3, max = 20, message = "The password length must be between 3 and 20 characters")
-    @NotBlank
+    @Length(min = 3, max = 20, message = "The password must be between 3 and 20 characters")
+    @NotBlank(message = "The field must not be empty")
     public String getPassword() {
         return password;
     }
@@ -46,7 +46,7 @@ public class UserRegisterBindingModel {
     }
 
     @Email(message = "Invalid email")
-    @NotBlank
+    @NotBlank(message = "The field must not be empty")
     public String getEmail() {
         return email;
     }

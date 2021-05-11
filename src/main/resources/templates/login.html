@@ -17,7 +17,7 @@
           th:action="@{/users/login}"
           th:method="POST">
         <small th:if="${#fields.errors()}" th:text="${errorMessages}" class="text-danger">Error message</small>
-        <br/>  
+        <br/>
         <small th:if="${notFound}" class="text-danger">Incorrect username or password!</small>
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">

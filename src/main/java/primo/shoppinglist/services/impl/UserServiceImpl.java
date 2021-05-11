@@ -48,9 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String exportErrorMessages(List<ObjectError> allErrors) {
         StringBuilder sb = new StringBuilder();
-        allErrors.forEach(e -> {
-            sb.append(e.getDefaultMessage()).append(System.lineSeparator());
-        });
-        return sb.toString().trim();
+        allErrors.forEach(e -> sb.append(e.getDefaultMessage()).append(System.lineSeparator()));
+        return sb.toString();
     }
 }

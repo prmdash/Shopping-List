@@ -18,7 +18,6 @@ public class ProductAddBindingModel {
     public ProductAddBindingModel() {
     }
 
-    @NotBlank(message = "Cannot be blank")
     @Length(min = 3, max = 20, message = "The name must be between 3 and 20 characters")
     public String getName() {
         return name;
@@ -37,7 +36,7 @@ public class ProductAddBindingModel {
         this.description = description;
     }
 
-    @DecimalMin(value = "0", message = "Price must be a positive number")
+    @DecimalMin(value = "0", message = "The price must be a positive number")
     public BigDecimal getPrice() {
         return price;
     }
@@ -47,7 +46,7 @@ public class ProductAddBindingModel {
     }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @FutureOrPresent(message = "The date cannot be in the past")
+    @FutureOrPresent(message = "The date cannot be before the present day")
     public LocalDateTime getNeededBefore() {
         return neededBefore;
     }

@@ -12,7 +12,7 @@ public class UserLoginBindingModel {
     }
 
     @NotBlank(message = "The username field cannot be blank")
-    @Length(min = 3, max = 20, message = "The username must be between 3 and 20 characters long")
+    @Length(min = 3, max = 20, message = "The username must be between 3 and 20 characters")
     public String getUsername() {
         return username;
     }
@@ -22,7 +22,7 @@ public class UserLoginBindingModel {
     }
 
     @NotBlank(message = "The password field cannot be blank")
-    @Length(min = 3, max = 20, message = "The password must be between 3 and 20 characters long")
+    @Length(min = 3, max = 20, message = "The password must be between 3 and 20 characters")
     public String getPassword() {
         return password;
     }

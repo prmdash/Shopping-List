@@ -1,7 +1,6 @@
 package primo.shoppinglist.services;
 
 import org.springframework.validation.ObjectError;
-import primo.shoppinglist.data.entities.UserEntity;
 import primo.shoppinglist.data.services.UserServiceModel;
 
 import java.util.List;
